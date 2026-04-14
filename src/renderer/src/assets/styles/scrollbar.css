@@ -1,0 +1,214 @@
+/* カスタムスクロールバー */
+.custom-scrollbar {
+  /* Webkit ブラウザ用 */
+  scrollbar-width: thin;
+  scrollbar-color: #c1c1c1 #f1f1f1;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+/* チャット専用スクロールバー */
+.chat-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #c5c5c5 #f8f9fa;
+}
+
+.chat-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-scrollbar::-webkit-scrollbar-track {
+  background: #f8f9fa;
+  border-radius: 3px;
+}
+
+.chat-scrollbar::-webkit-scrollbar-thumb {
+  background: #c5c5c5;
+  border-radius: 3px;
+  transition: all 0.2s ease;
+}
+
+.chat-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #c5c5c5;
+} 
+/* カスタムスクロールバー */
+.custom-scrollbar {
+    /* Webkit ブラウザ用 */
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 #f1f1f1;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+  }
+  
+  /* チャット専用スクロールバー（現在使用中） */
+  .chat-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #c5c5c5 #f8f9fa;
+  }
+  
+  .chat-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .chat-scrollbar::-webkit-scrollbar-track {
+    background: #f8f9fa;
+    border-radius: 3px;
+  }
+  
+  .chat-scrollbar::-webkit-scrollbar-thumb {
+    background: #c5c5c5;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+  }
+  
+  .chat-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #c5c5c5;
+  }
+  
+  /* デザインバリエーション1: モダンフラット */
+  .modern-scrollbar::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  .modern-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .modern-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #c5c5c5, #a5a5a5);
+    border-radius: 10px;
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  
+  .modern-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #a5a5a5, #797979);
+    transform: scale(1.1);
+  }
+  
+  /* デザインバリエーション2: ミニマル透明 */
+  .minimal-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  .minimal-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .minimal-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+  
+  .minimal-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.6);
+    width: 6px;
+  }
+  
+  /* デザインバリエーション3: ネオン効果 */
+  .neon-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .neon-scrollbar::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    border-radius: 4px;
+  }
+  
+  .neon-scrollbar::-webkit-scrollbar-thumb {
+    background: #c5c5c5;
+    border-radius: 4px;
+    box-shadow: 
+      0 0 5px #c5c5c5,
+      0 0 10px #c5c5c5,
+      0 0 15px #c5c5c5;
+    transition: all 0.2s ease;
+  }
+  
+  .neon-scrollbar::-webkit-scrollbar-thumb:hover {
+    box-shadow: 
+      0 0 10px #c5c5c5,
+      0 0 20px #c5c5c5,
+      0 0 30px #c5c5c5;
+  }
+  
+  /* デザインバリエーション4: 丸いボタン風 */
+  .rounded-scrollbar::-webkit-scrollbar {
+    width: 14px;
+  }
+  
+  .rounded-scrollbar::-webkit-scrollbar-track {
+    background: #e9ecef;
+    border-radius: 7px;
+    margin: 5px;
+  }
+  
+  .rounded-scrollbar::-webkit-scrollbar-thumb {
+    background: #495057;
+    border-radius: 7px;
+    border: 2px solid #e9ecef;
+    min-height: 20px;
+  }
+  
+  .rounded-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #212529;
+  }
+  
+  /* デザインバリエーション5: 虹色グラデーション */
+  .rainbow-scrollbar::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  .rainbow-scrollbar::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 5px;
+  }
+  
+  .rainbow-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      45deg,
+      #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7, #fd79a8
+    );
+    border-radius: 5px;
+    animation: rainbow-pulse 3s ease-in-out infinite alternate;
+  }
+  
+  @keyframes rainbow-pulse {
+    0% { opacity: 0.8; }
+    100% { opacity: 1; }
+  }

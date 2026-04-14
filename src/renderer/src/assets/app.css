@@ -1,0 +1,5 @@
+header {
+    -webkit-app-region: drag; /* ドラッグ可能に */
+    /* -webkit-user-select: none; */
+    color: blueviolet;
+}

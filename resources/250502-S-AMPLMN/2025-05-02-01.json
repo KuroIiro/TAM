@@ -1,0 +1,56 @@
+[
+    {
+        "id": "1",
+        "type": "text",
+        "content": "こんにちは",
+        "self": true,
+        "senderId": "1",
+        "senderName": "",
+        "reaction": [],
+        "read": [],
+        "reply": {
+            "isActive": false,
+            "id": "",
+            "type": "",
+            "content": "",
+            "senderName": "",
+            "timestamp": ""
+        },
+        "transfer": {
+            "isActive": false,
+            "id": "",
+            "type": "",
+            "content": "",
+            "senderName": "",
+            "timestamp": ""
+        },
+        "timestamp": "2025-05-02T00:00:00.000Z"
+    },
+    {
+        "id": "1",
+        "type": "text",
+        "content": "よろしく",
+        "self": false,
+        "senderId": "2",
+        "senderName": "Ichiro",
+        "reaction": [],
+        "read": [],
+        "reply": {
+            "isActive": false,
+            "id": "",
+            "type": "",
+            "content": "",
+            "senderName": "",
+            "timestamp": ""
+        },
+        "transfer": {
+            "isActive": false,
+            "id": "",
+            "type": "",
+            "content": "",
+            "senderName": "",
+            "timestamp": ""
+        },
+        "timestamp": "2025-05-02T00:00:00.000Z"
+    }
+]
