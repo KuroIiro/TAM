@@ -34,7 +34,8 @@ const ChatRoom: React.FC<Props> = ({ chatRoomId }) => {
     const fetchChat = async (): Promise<void> => {
       try {
         const result = await window.chatAPI.loadRoomTalk('single', chatRoomId)
-        // console.log('loadRoomTalk', result, chatRoomId)
+        const resultJson = JSON.stringify(result)
+        console.log("success", resultJson["success"])
         setChat(result)
       } catch (err) {
         // console.error(err)

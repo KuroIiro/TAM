@@ -17,8 +17,8 @@ export function loadRoomData(): void {
         roomId
       )
 
-      console.log('🔍 Searching directory:', dirPath)
-      console.log('📁 Parameters:', { type, roomId })
+      console.log('Searching directory:', dirPath)
+      console.log('Parameters:', { type, roomId })
 
       // ディレクトリ存在チェック なければ作成
       if (!fs.existsSync(dirPath)) {
@@ -27,7 +27,7 @@ export function loadRoomData(): void {
 
 
       const files = await readdir(dirPath)
-      console.log('📂 Found files:', files)
+      console.log('Found files:', files)
 
       const jsonFiles = files
         .filter((file) => /^\d{4}-\d{2}-\d{2}-\d{2}\.json$/.test(file))
@@ -39,7 +39,7 @@ export function loadRoomData(): void {
           })()
         }))
 
-      console.log('✅ Matching JSON files:', jsonFiles)
+      console.log('Matching JSON files:', jsonFiles)
 
       if (jsonFiles.length === 0) {
         return { success: false, error: 'No matching files found.' }
@@ -59,7 +59,7 @@ export function loadRoomData(): void {
       }
     } catch (e: unknown) {
       const error = e instanceof Error ? e.message : 'Unknown error'
-      console.error('❌ File loading error:', error)
+      console.error('File loading error:', error)
       return { success: false, error }
     }
   })
