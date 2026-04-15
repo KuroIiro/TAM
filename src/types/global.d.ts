@@ -3,7 +3,7 @@ export {}
 declare global {
   interface Window {
     chatAPI: {
-      loadRoomTalk: (type: string, roomId: string) => Promise<string>
+      loadRoomTalk: (type: string, roomId: string) => Promise<ChatResponse>
       chatSendMessageText: (roomId: string, message: string) => Promise<void>
     }
   }

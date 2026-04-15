@@ -1,0 +1,50 @@
+[
+  {
+    "id": "",
+    "type": "text",
+    "content": {
+      "type": "doc",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "Example "
+            },
+            {
+              "type": "text",
+              "marks": [
+                {
+                  "type": "bold"
+                }
+              ],
+              "text": "Text"
+            }
+          ]
+        }
+      ]
+    },
+    "self": true,
+    "senderName": "",
+    "reaction": [],
+    "read": [],
+    "reply": {
+      "isActive": false,
+      "id": "",
+      "type": "",
+      "content": "",
+      "senderName": "",
+      "timestamp": ""
+    },
+    "transfer": {
+      "isActive": false,
+      "id": "",
+      "type": "",
+      "content": "",
+      "senderName": "",
+      "timestamp": ""
+    },
+    "timestamp": "2025-07-14T00:00:00.000Z"
+  }
+]

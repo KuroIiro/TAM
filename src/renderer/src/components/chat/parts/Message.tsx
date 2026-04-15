@@ -7,6 +7,7 @@ type Props = {
 }
 
 function Message({ chatData }: Props): JSX.Element {
+  console.log('messageData', chatData)
   const messageStyle = {
     width: '100%',
     height: '40%',
@@ -15,7 +16,7 @@ function Message({ chatData }: Props): JSX.Element {
   }
   return (
     <Card style={messageStyle}>
-      <p>{chatData.content}</p>
+      <p>{chatData.content.type}</p>
     </Card>
   )
 }

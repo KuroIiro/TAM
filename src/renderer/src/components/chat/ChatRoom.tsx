@@ -1,5 +1,5 @@
 import { Divider, Flex, Layout } from 'antd'
-import { useRef, useEffect, useState, useCallback } from 'react'
+import { useRef, useLayoutEffect, useState, useCallback } from 'react'
 import ChatView from './ChatView'
 import ChatHeader from './ChatHeader'
 import ChatMessageBox from './ChatMessageBox'
@@ -30,12 +30,10 @@ const ChatRoom: React.FC<Props> = ({ chatRoomId }) => {
     height: '100vh'
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const fetchChat = async (): Promise<void> => {
       try {
-        const result = await window.chatAPI.loadRoomTalk('single', chatRoomId)
-        const resultJson = JSON.stringify(result)
-        console.log("success", resultJson["success"])
+        const result: ChatResponse = await window.chatAPI.loadRoomTalk('single', chatRoomId)
         setChat(result)
       } catch (err) {
         // console.error(err)
