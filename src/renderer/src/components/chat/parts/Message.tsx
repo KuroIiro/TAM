@@ -16,7 +16,7 @@ function Message({ chatData }: Props): JSX.Element {
   }
   return (
     <Card style={messageStyle}>
-      <p>{chatData.content.type}</p>
+      <p>{chatData.content}</p>
     </Card>
   )
 }
