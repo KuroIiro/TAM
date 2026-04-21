@@ -1,8 +1,19 @@
 import { Divider, Flex, List } from 'antd'
 import SiderHeader from './SideHeader'
 import ChatRoomItem from './ChatRoomItem'
+import { useState } from 'react'
+import { useEffect } from 'react'
 
 /* eslint-disable react/prop-types */
+type ChatRoomInfo = {
+  roomID: string
+  icon: string
+  name: string
+  lastSendTime: string
+  lastMessage: string
+  isNewMessage: boolean
+}
+
 type Props = {
   chatRoomId: string
   setChatRoomId: React.Dispatch<React.SetStateAction<string>>
@@ -12,33 +23,14 @@ const ChatRoomList: React.FC<Props> = ({ chatRoomId, setChatRoomId }) => {
   const dividerStyle = {
     margin: 0
   }
-
-  const roomList = [
-    {
-      roomID: '250502-S-AMPLMN',
-      icon: '',
-      name: 'AAA',
-      lastSendTime: '2025-04-28T14:30:00+09:00',
-      lastMessage: 'Hellooooooooooooooooooooooooooooooo',
-      isNewMessage: true
-    },
-    {
-      roomID: '250502-S-SCEBWE',
-      icon: '',
-      name: 'BBB',
-      lastSendTime: '2024-04-26T14:30:00+09:00',
-      lastMessage: 'Bye',
-      isNewMessage: false
-    },
-    {
-      roomID: '250502-S-JBSBXV',
-      icon: '',
-      name: 'BBB',
-      lastSendTime: '2025-04-29T14:30:00+09:00',
-      lastMessage: 'Bye',
-      isNewMessage: false
+  const [roomList, setRoomList] = useState<ChatRoomInfo[]>([])
+  useEffect(() => {
+    const fetchRoomList = async () => {
+      const roomList: ChatRoomInfo[] = await window.chatAPI.loadRoomList()
+      setRoomList(roomList)
     }
-  ]
+    fetchRoomList()
+  }, [])
   return (
     <>
       <Flex vertical>

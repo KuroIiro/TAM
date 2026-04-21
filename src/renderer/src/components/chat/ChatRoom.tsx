@@ -67,7 +67,7 @@ const ChatRoom: React.FC<Props> = ({ chatRoomId }) => {
               overflow: 'hidden'
             }}
           >
-            {/* チャット表示エリア - カスタムスクロールバー付き */}
+            {/* チャット表示エリア */}
             <div
               ref={scrollContainerRef}
               className="modern-scrollbar"
@@ -80,7 +80,7 @@ const ChatRoom: React.FC<Props> = ({ chatRoomId }) => {
             >
               <ChatView chatData={chat} />
             </div>
-            {/* メッセージ入力エリア - 下部固定 */}
+            {/* メッセージ入力エリア  */}
             <div
               style={{
                 flexShrink: 0,

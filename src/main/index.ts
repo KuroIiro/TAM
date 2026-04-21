@@ -3,7 +3,7 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { loadRoomData } from './ipc/file'
-
+import * as fs from 'fs'
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -42,6 +42,34 @@ function createWindow(): void {
   }
 }
 
+function settingCheck(): void {
+
+  const vaildDirectory = (directoryPath: string) => {
+    if (!fs.existsSync(directoryPath)) {
+      fs.mkdirSync(directoryPath, { recursive: true })
+    }
+  }
+
+  const vaildFile = (filePath: string, content: any) => {
+    if (!fs.existsSync(filePath)) {
+      fs.writeFileSync(filePath, JSON.stringify(content))
+    }
+  }
+
+  // ChatRoomList File
+  const settingPath = join(app.getPath('appData'), 'TeamsAndMessenger', 'data', 'roomlist.json')
+  vaildFile(settingPath, {})
+
+  // ChatRoom Single DataDirectory
+  const chatroomSingleDataDirectoryPath = join(app.getPath('appData'), 'TeamsAndMessenger', 'data', 'rooms', 'single')
+  vaildDirectory(chatroomSingleDataDirectoryPath)
+
+  // ChatRoom Group DataDirectory
+  const chatroomGroupDataDirectoryPath = join(app.getPath('appData'), 'TeamsAndMessenger', 'data', 'rooms', 'Group')
+  vaildDirectory(chatroomGroupDataDirectoryPath)
+
+}
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -59,6 +87,7 @@ app.whenReady().then(() => {
   // IPC test
   ipcMain.on('ping', () => console.log('pong'))
 
+  settingCheck()
   createWindow()
   loadRoomData()
 

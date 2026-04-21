@@ -3,7 +3,6 @@ import { ipcMain, app } from 'electron'
 import { readFile, readdir } from 'fs/promises'
 import * as fs from 'fs'
 import { join } from 'path'
-import { ChatMessage, dataTemplate } from '../../types/chat'
 
 export function loadRoomData(): void {
   ipcMain.handle('load-room-talk', async (_, type: string, roomId: string) => {
@@ -64,3 +63,25 @@ export function loadRoomData(): void {
     }
   })
 }
+
+export function loadRoomList(): void {
+  ipcMain.handle('load-roomlist', async (_) => {
+    try {
+      const dirPath = join(
+        app.getPath('appData'),
+        'TeamsAndMessenger',
+        'data',
+        'roomlist.json'
+      )
+      const contentStr = await readFile(dirPath, 'utf-8')
+      const content = JSON.parse(contentStr)
+      return content
+    }
+    catch (e: unknown) {
+      const error = e instanceof Error ? e.message : 'Unknown error'
+      console.error('File loading error:', error)
+      return { success: false, error }
+    }
+  })
+}
+

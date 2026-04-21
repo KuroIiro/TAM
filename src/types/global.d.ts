@@ -4,6 +4,7 @@ declare global {
   interface Window {
     chatAPI: {
       loadRoomTalk: (type: string, roomId: string) => Promise<ChatResponse>
+      loadRoomList: () => Promise<ChatRoomInfo[]>
       chatSendMessageText: (roomId: string, message: string) => Promise<void>
     }
   }

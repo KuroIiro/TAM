@@ -6,7 +6,7 @@ import { Route, Routes, Link, useLocation } from 'react-router-dom'
 import Home from './pages/Home'
 import Activity from './pages/Activity'
 import Chat from './pages/Chat'
-import Team from './pages/Team'
+import Group from './pages/Group'
 import AppHeader from './components/common/AppHeader'
 import PageButton from './components/common/PageButton'
 import {
@@ -51,7 +51,7 @@ function App(): JSX.Element {
     { path: '/', icon: HomeOutlined, name: 'Home' },
     { path: '/activity', icon: BellOutlined, name: 'Activity' },
     { path: '/chat', icon: CommentOutlined, name: 'Chat' },
-    { path: '/team', icon: TeamOutlined, name: 'Team' },
+    { path: '/Group', icon: TeamOutlined, name: 'Group' },
     { path: '/quest', icon: HistoryOutlined, name: 'Quest' },
     { path: '/setting', icon: SettingOutlined, name: 'Setting' },
     { path: '/otherapp', icon: EllipsisOutlined, name: '' },
@@ -107,7 +107,7 @@ function App(): JSX.Element {
               <Route path="/" element={<Home />} />
               <Route path="/activity" element={<Activity />} />
               <Route path="/chat" element={<Chat />} />
-              <Route path="/team" element={<Team />} />
+              <Route path="/group" element={<Group />} />
               <Route path="/quest" element={<Quest />} />
               <Route path="/setting" element={<Home />} />
               <Route path="/otherapp" element={<Home />} />
