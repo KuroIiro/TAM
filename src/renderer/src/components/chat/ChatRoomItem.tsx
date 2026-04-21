@@ -9,9 +9,9 @@ type ChatRoomItemProps = {
   name: string
   icon: string
   lastMessage: string
-  lastSendTime: string
+  lastMessageTime: string
   isActive: boolean
-  isNewMessage?: boolean
+  unreadCount?: number
   onClick: () => void
 }
 
@@ -20,12 +20,12 @@ const ChatRoomItem: React.FC<ChatRoomItemProps> = ({
   name,
   icon,
   lastMessage,
-  lastSendTime,
+  lastMessageTime,
   isActive,
-  isNewMessage,
+  unreadCount = 0,
   onClick
 }) => {
-  const time = parseLastSendTime(lastSendTime)
+  const time = parseLastSendTime(lastMessageTime)
   let formattedTime = ''
   if (time) {
     if (isToday(time)) {
@@ -48,19 +48,19 @@ const ChatRoomItem: React.FC<ChatRoomItemProps> = ({
       onClick={onClick}
     >
       <Flex vertical={false} align="center" gap="small" style={{ width: 210 }}>
-        <Badge dot={isNewMessage}>
+        <Badge dot={unreadCount > 0}>
           <Avatar src={icon || undefined}>{name[0]}</Avatar>
         </Badge>
         <Flex vertical style={{ flex: 1, minWidth: 0 }}>
           <Flex justify="space-between" style={{ width: '100%' }}>
-            <Text strong={isNewMessage} style={{ fontSize: 12 }}>
+            <Text strong={unreadCount > 0} style={{ fontSize: 12 }}>
               {name}
             </Text>
-            <Text strong={isNewMessage} style={{ fontSize: 10, whiteSpace: 'nowrap' }}>
+            <Text strong={unreadCount > 0} style={{ fontSize: 10, whiteSpace: 'nowrap' }}>
               {formattedTime}
             </Text>
           </Flex>
-          <Text ellipsis style={{ fontSize: 12, maxWidth: 200 }} strong={isNewMessage}>
+          <Text ellipsis style={{ fontSize: 12, maxWidth: 200 }} strong={unreadCount > 0}>
             {lastMessage}
           </Text>
         </Flex>

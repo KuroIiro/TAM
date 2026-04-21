@@ -6,7 +6,9 @@ const chatAPI = {
   chatSendMessageText: (roomId: string, message: string): Promise<void> =>
     ipcRenderer.invoke('chat-send-message-text', roomId, message),
   loadRoomTalk: (type: string, roomId: string): Promise<void> =>
-    ipcRenderer.invoke('load-room-talk', type, roomId)
+    ipcRenderer.invoke('load-room-talk', type, roomId),
+  loadRoomList: (): Promise<void> =>
+    ipcRenderer.invoke('load-roomlist')
 }
 const api = {}
 

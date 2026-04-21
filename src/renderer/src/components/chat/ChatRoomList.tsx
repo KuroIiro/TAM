@@ -9,9 +9,9 @@ type ChatRoomInfo = {
   roomID: string
   icon: string
   name: string
-  lastSendTime: string
+  lastMessageTime: string
   lastMessage: string
-  isNewMessage: boolean
+  unreadCount: number
 }
 
 type Props = {
@@ -31,6 +31,23 @@ const ChatRoomList: React.FC<Props> = ({ chatRoomId, setChatRoomId }) => {
     }
     fetchRoomList()
   }, [])
+
+  const convertRoomList = (roomList: ChatRoomInfo[]): ChatRoomInfo[] => {
+    return roomList
+      .map((item) => ({
+        roomID: item.roomID,
+        name: item.name,
+        icon: item.icon,
+        lastMessage: item.lastMessage,
+        lastMessageTime: item.lastMessageTime,
+        unreadCount: item.unreadCount
+    }))
+    .sort((a, b) => {
+      const aTime = Date.parse(a.lastMessageTime.replace(' ', 'T'))
+      const bTime = Date.parse(b.lastMessageTime.replace(' ', 'T'))
+      return bTime - aTime
+    })
+  }
   return (
     <>
       <Flex vertical>
@@ -38,7 +55,7 @@ const ChatRoomList: React.FC<Props> = ({ chatRoomId, setChatRoomId }) => {
         <Divider style={dividerStyle} />
         <List
           itemLayout="horizontal"
-          dataSource={roomList}
+          dataSource={convertRoomList(roomList)}
           renderItem={(item) => (
             <ChatRoomItem
               key={item.roomID}

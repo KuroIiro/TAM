@@ -1,8 +1,8 @@
 import { app, shell, BrowserWindow, ipcMain } from 'electron'
-import { join } from 'path'
+import { dirname, join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
-import { loadRoomData } from './ipc/file'
+import { loadRoomData, loadRoomList } from './ipc/file'
 import * as fs from 'fs'
 function createWindow(): void {
   // Create the browser window.
@@ -50,15 +50,35 @@ function settingCheck(): void {
     }
   }
 
-  const vaildFile = (filePath: string, content: any) => {
-    if (!fs.existsSync(filePath)) {
-      fs.writeFileSync(filePath, JSON.stringify(content))
-    }
+  const vaildFile = (filePath: string, content: unknown) => {
+    const dir = dirname(filePath)
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true })
+    if (!fs.existsSync(filePath)) fs.writeFileSync(filePath, JSON.stringify(content))
   }
 
   // ChatRoomList File
   const settingPath = join(app.getPath('appData'), 'TeamsAndMessenger', 'data', 'roomlist.json')
-  vaildFile(settingPath, {})
+  const dummyRoomList = {
+    '260421-S-AMPLMN': {
+      name: 'AAA',
+      lastMessage: 'Hello',
+      lastMessageTime: '2026-04-21 10:00:00',
+      unreadCount: 0
+    },
+    '260421-S-SCEBWE': {
+      name: 'BBB',
+      lastMessage: 'Hello',
+      lastMessageTime: '2026-04-21 10:00:00',
+      unreadCount: 0
+    },
+    '260421-S-JBSBXV': {
+      name: 'CCC',
+      lastMessage: 'Hello',
+      lastMessageTime: '2026-04-21 10:00:00',
+      unreadCount: 0
+    }
+  }
+  vaildFile(settingPath, dummyRoomList)
 
   // ChatRoom Single DataDirectory
   const chatroomSingleDataDirectoryPath = join(app.getPath('appData'), 'TeamsAndMessenger', 'data', 'rooms', 'single')
@@ -90,6 +110,7 @@ app.whenReady().then(() => {
   settingCheck()
   createWindow()
   loadRoomData()
+  loadRoomList()
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
