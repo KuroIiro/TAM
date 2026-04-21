@@ -21,11 +21,14 @@ const ChatRoomItem: React.FC<ChatRoomItemProps> = ({
   icon,
   lastMessage,
   lastMessageTime,
-  isActive,
   unreadCount = 0,
   onClick
 }) => {
   const time = parseLastSendTime(lastMessageTime)
+
+  const isActive = roomID === chatRoomId
+
+  
   let formattedTime = ''
   if (time) {
     if (isToday(time)) {

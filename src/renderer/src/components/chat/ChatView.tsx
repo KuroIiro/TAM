@@ -18,9 +18,10 @@ function ChatView({ chatData }: Props): JSX.Element {
   )
   return (
     <Flex vertical gap="middle">
-      {chatData?.data.map((message: ChatMessage) => (
+      <ContentCard />
+      {/* {chatData?.data.map((message: ChatMessage) => (
         <Message key={message.id} chatData={message} />
-      ))}
+      ))} */}
     </Flex>
   )
 }

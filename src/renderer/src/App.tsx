@@ -51,7 +51,7 @@ function App(): JSX.Element {
     { path: '/', icon: HomeOutlined, name: 'Home' },
     { path: '/activity', icon: BellOutlined, name: 'Activity' },
     { path: '/chat', icon: CommentOutlined, name: 'Chat' },
-    { path: '/Group', icon: TeamOutlined, name: 'Group' },
+    { path: '/group', icon: TeamOutlined, name: 'Group' },
     { path: '/quest', icon: HistoryOutlined, name: 'Quest' },
     { path: '/setting', icon: SettingOutlined, name: 'Setting' },
     { path: '/otherapp', icon: EllipsisOutlined, name: '' },

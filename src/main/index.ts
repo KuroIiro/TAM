@@ -58,26 +58,29 @@ function settingCheck(): void {
 
   // ChatRoomList File
   const settingPath = join(app.getPath('appData'), 'TeamsAndMessenger', 'data', 'roomlist.json')
-  const dummyRoomList = {
-    '260421-S-AMPLMN': {
+  const dummyRoomList = [
+    {
+      id: '260421-S-AMPLMN',
       name: 'AAA',
       lastMessage: 'Hello',
       lastMessageTime: '2026-04-21 10:00:00',
       unreadCount: 0
     },
-    '260421-S-SCEBWE': {
+    {
+      id: '260421-S-SCEBWE',
       name: 'BBB',
       lastMessage: 'Hello',
       lastMessageTime: '2026-04-21 10:00:00',
       unreadCount: 0
     },
-    '260421-S-JBSBXV': {
+    {
+      id: '260421-S-JBSBXV',
       name: 'CCC',
       lastMessage: 'Hello',
       lastMessageTime: '2026-04-21 10:00:00',
       unreadCount: 0
     }
-  }
+  ]
   vaildFile(settingPath, dummyRoomList)
 
   // ChatRoom Single DataDirectory
