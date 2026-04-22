@@ -7,10 +7,10 @@ type Props = {
 }
 
 function ChatView({ chatData }: Props): JSX.Element {
+  console.log('chatData', chatData)
   if (chatData == null) {
     return <div>Loading...</div>
   }
-  console.log('chatData', chatData)
   const ContentCard = (): JSX.Element => (
     <Card style={{ width: '100%', height: '40%' }}>
       <p>aa</p>

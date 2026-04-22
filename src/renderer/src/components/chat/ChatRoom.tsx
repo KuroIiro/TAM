@@ -3,11 +3,10 @@ import { useRef, useLayoutEffect, useState, useCallback } from 'react'
 import ChatView from './ChatView'
 import ChatHeader from './ChatHeader'
 import ChatMessageBox from './ChatMessageBox'
+import { useSelector } from 'react-redux'
+import { store } from '@renderer/app/store'
 
 /* eslint-disable react/prop-types */
-type Props = {
-  chatRoomId: string
-}
 type ChatData = {
   message: string
   timestamp?: string
@@ -19,11 +18,13 @@ type ChatResponse = {
   data: ChatData
 }
 
-const ChatRoom: React.FC<Props> = ({ chatRoomId }) => {
+const ChatRoom: React.FC = () => {
   const [chat, setChat] = useState<ChatResponse | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [activeTabKey, setActiveTabKey] = useState<string>('1')
   const scrollContainerRef = useRef<HTMLDivElement>(null)
+
+  const chatRoomId = useSelector((state: ReturnType<typeof store.getState>) => state.roomId.roomId)
 
   const layoutStyle = {
     overflow: 'hidden',

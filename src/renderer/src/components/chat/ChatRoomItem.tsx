@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import { Avatar, Badge, Flex, List, Typography } from 'antd'
 import { parseLastSendTime, isToday, isThisYear } from '../../utils/formatters/DateFormat'
+import { useSelector } from 'react-redux'
+import { store } from '../../app/store'
 
 const { Text } = Typography
 
@@ -10,7 +12,6 @@ type ChatRoomItemProps = {
   icon: string
   lastMessage: string
   lastMessageTime: string
-  isActive: boolean
   unreadCount?: number
   onClick: () => void
 }
@@ -26,7 +27,7 @@ const ChatRoomItem: React.FC<ChatRoomItemProps> = ({
 }) => {
   const time = parseLastSendTime(lastMessageTime)
 
-  const isActive = roomID === chatRoomId
+  const isActive = roomID === useSelector((state: ReturnType<typeof store.getState>) => state.roomId.roomId)
 
   
   let formattedTime = ''

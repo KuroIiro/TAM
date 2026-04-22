@@ -3,6 +3,8 @@ import SiderHeader from './SideHeader'
 import ChatRoomItem from './ChatRoomItem'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import { setRoomId } from '@renderer/features/chat/roomId'
+import { useDispatch } from 'react-redux'
 
 /* eslint-disable react/prop-types */
 type ChatRoomInfo = {
@@ -14,12 +16,8 @@ type ChatRoomInfo = {
   unreadCount: number
 }
 
-type Props = {
-  chatRoomId: string
-  setChatRoomId: React.Dispatch<React.SetStateAction<string>>
-}
-
-const ChatRoomList: React.FC<Props> = ({ chatRoomId, setChatRoomId }) => {
+const ChatRoomList: React.FC = () => {
+  const dispatch = useDispatch()
   const dividerStyle = {
     margin: 0
   }
@@ -44,7 +42,7 @@ const ChatRoomList: React.FC<Props> = ({ chatRoomId, setChatRoomId }) => {
             <ChatRoomItem
               key={item.roomID}
               {...item}
-              onClick={() => setChatRoomId(item.roomID)}
+              onClick={() => dispatch(setRoomId(item.roomID))}
             />
           )}
         />

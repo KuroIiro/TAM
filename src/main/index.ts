@@ -4,6 +4,9 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { loadRoomData, loadRoomList } from './ipc/file'
 import * as fs from 'fs'
+import { connectWebSocket, registerWebSocketIPC } from './ipc/websocket'
+import dotenv from 'dotenv'
+dotenv.config()
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -60,21 +63,21 @@ function settingCheck(): void {
   const settingPath = join(app.getPath('appData'), 'TeamsAndMessenger', 'data', 'roomlist.json')
   const dummyRoomList = [
     {
-      id: '260421-S-AMPLMN',
+      roomID: '260421-S-AMPLMN',
       name: 'AAA',
       lastMessage: 'Hello',
       lastMessageTime: '2026-04-21 10:00:00',
       unreadCount: 0
     },
     {
-      id: '260421-S-SCEBWE',
+      roomID: '260421-S-SCEBWE',
       name: 'BBB',
       lastMessage: 'Hello',
       lastMessageTime: '2026-04-21 10:00:00',
       unreadCount: 0
     },
     {
-      id: '260421-S-JBSBXV',
+      roomID: '260421-S-JBSBXV',
       name: 'CCC',
       lastMessage: 'Hello',
       lastMessageTime: '2026-04-21 10:00:00',
@@ -96,7 +99,7 @@ function settingCheck(): void {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
   // Set app user model id for windows
   electronApp.setAppUserModelId('com.electron')
 
@@ -114,6 +117,9 @@ app.whenReady().then(() => {
   createWindow()
   loadRoomData()
   loadRoomList()
+
+  registerWebSocketIPC()
+  await connectWebSocket(process.env.MAIN_VITE_WS_URL ?? 'ws://localhost:8080')
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
