@@ -1,4 +1,5 @@
 import { ipcMain } from 'electron'
+import { WebSocket } from 'ws'
 
 type WsState = 'idle' | 'connecting' | 'open' | 'closed' | 'error'
 
@@ -30,7 +31,8 @@ type WsClient = {
   ) => void
 }
 
-let socket: WsClient | null = null
+// WebSocketオブジェクト
+let socket: WebSocket | null = null
 
 let wsState: WsState = 'idle'
 let currentUrl: string | null = null
@@ -38,14 +40,6 @@ let currentUrl: string | null = null
 const READY_STATE_OPEN = 1
 
 const isConnected = (): boolean => socket !== null && socket.readyState === READY_STATE_OPEN
-
-const getWebSocketCtor = (): new (url: string) => WsClient => {
-  const ctor = (globalThis as { WebSocket?: new (url: string) => WsClient }).WebSocket
-  if (!ctor) {
-    throw new Error('WebSocket is not available in main process')
-  }
-  return ctor
-}
 
 const normalizeError = (error: unknown): string =>
   error instanceof Error ? error.message : String(error)
@@ -58,6 +52,7 @@ export async function connectWebSocket(url: string): Promise<ConnectResult> {
 
     // 既存接続がある場合は作り直す
     if (socket) {
+      // 早期リターンでもいいかも
       try {
         socket.close(1000, 'reconnect')
       } catch {
@@ -65,32 +60,31 @@ export async function connectWebSocket(url: string): Promise<ConnectResult> {
       }
     }
 
-    const WebSocketCtor = getWebSocketCtor()
     wsState = 'connecting'
     currentUrl = url
-    socket = new WebSocketCtor(url)
-    const ws = socket
+    socket = new WebSocket(url)
 
-    ws.addEventListener('open', () => {
+    socket.addEventListener('open', () => {
       wsState = 'open'
     })
 
-    ws.addEventListener('close', () => {
+    socket.addEventListener('close', () => {
       wsState = 'closed'
     })
 
-    ws.addEventListener('error', () => {
+    socket.addEventListener('error', () => {
       wsState = 'error'
     })
 
+    // 接続確定
     return await new Promise<ConnectResult>((resolve) => {
-      ws.addEventListener(
+      socket.addEventListener(
         'open',
         () => resolve({ success: true, state: 'open' }),
         { once: true }
       )
 
-      ws.addEventListener(
+      socket.addEventListener(
         'error',
         () => resolve({ success: false, state: 'error', error: 'Failed to open WebSocket' }),
         { once: true }
@@ -102,23 +96,26 @@ export async function connectWebSocket(url: string): Promise<ConnectResult> {
   }
 }
 
+export async function sendMessage(payload: unknown): Promise<SendResult> {
+  try {
+    if (!isConnected() || !socket) {
+      return { success: false, error: 'WebSocket is not connected' }
+    }
+    socket.send(JSON.stringify(payload))
+    return { success: true }
+  }
+  catch (error) {
+    return { success: false, error: normalizeError(error) }
+  }
+}
+
 export function registerWebSocketIPC(): void {
   ipcMain.handle('ws:connect', async (_event, url: string): Promise<ConnectResult> => {
     return await connectWebSocket(url)
   })
 
   ipcMain.handle('ws:send', async (_event, payload: unknown): Promise<SendResult> => {
-    try {
-      if (!isConnected() || !socket) {
-        return { success: false, error: 'WebSocket is not connected' }
-      }
-
-      const message = typeof payload === 'string' ? payload : JSON.stringify(payload)
-      socket.send(message)
-      return { success: true }
-    } catch (error) {
-      return { success: false, error: normalizeError(error) }
-    }
+    return await sendMessage(payload)
   })
 
   ipcMain.handle('ws:disconnect', async (): Promise<SendResult> => {

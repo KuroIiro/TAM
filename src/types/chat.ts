@@ -10,11 +10,12 @@ export type ChatResponse = {
 }
 
 export type ChatRoomInfo = {
-  id: string
+  roomID: string
+  icon: string
   name: string
-  lastMessage?: string
-  lastMessageTime?: string
-  unreadCount?: number
+  lastMessageTime: string
+  lastMessage: string
+  unreadCount: number
 }
 
 export type ChatMessage = {

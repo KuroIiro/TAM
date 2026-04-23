@@ -5,16 +5,9 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import { setRoomId } from '@renderer/features/chat/roomId'
 import { useDispatch } from 'react-redux'
+import { ChatRoomInfo } from 'src/types/chat'
 
 /* eslint-disable react/prop-types */
-type ChatRoomInfo = {
-  roomID: string
-  icon: string
-  name: string
-  lastMessageTime: string
-  lastMessage: string
-  unreadCount: number
-}
 
 const ChatRoomList: React.FC = () => {
   const dispatch = useDispatch()

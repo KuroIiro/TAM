@@ -2,9 +2,11 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { dirname, join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
-import { loadRoomData, loadRoomList } from './ipc/file'
+import { getRoomList, loadRoomData, loadRoomList } from './ipc/file'
 import * as fs from 'fs'
 import { connectWebSocket, registerWebSocketIPC } from './ipc/websocket'
+import { randomUUID } from 'node:crypto'
+
 import dotenv from 'dotenv'
 dotenv.config()
 function createWindow(): void {
@@ -58,6 +60,10 @@ function settingCheck(): void {
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true })
     if (!fs.existsSync(filePath)) fs.writeFileSync(filePath, JSON.stringify(content))
   }
+
+  const appSettingPath = join(app.getPath('appData'), 'TeamsAndMessenger', 'setting.json')
+  const dummyAppSetting = {UUID: randomUUID()}
+  vaildFile(appSettingPath, dummyAppSetting)
 
   // ChatRoomList File
   const settingPath = join(app.getPath('appData'), 'TeamsAndMessenger', 'data', 'roomlist.json')
@@ -117,9 +123,16 @@ app.whenReady().then(async () => {
   createWindow()
   loadRoomData()
   loadRoomList()
-
   registerWebSocketIPC()
-  await connectWebSocket(process.env.MAIN_VITE_WS_URL ?? 'ws://localhost:8080')
+
+
+  const roomList = await getRoomList()
+  if((await connectWebSocket(process.env.MAIN_VITE_WS_URL ?? 'ws://localhost:8080')).success) {
+    for(const room of roomList) {
+      console.log(room.roomID)
+      // await chatSendMessageText(room.roomID, 'Hello')
+    }
+  }
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
